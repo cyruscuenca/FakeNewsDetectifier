@@ -57,6 +57,27 @@ export default ({ config, db }) => {
 			res.sendStatus(400);
 		}
 	});
+	
+	api.get('/posts/latest', (req, res) => {
+	
+		var mysql = require('mysql');
+
+		var db = mysql.createConnection({
+			host: 'localhost',
+			user: 'root',
+			password: '9R8Fwz2N',
+			database: 'fake_news'
+		});
+
+		db.connect(function(err) {
+			if (err) throw err;
+			db.query('SELECT * FROM posts ORDER BY postid DESC LIMIT 1;', function (err, result, fields) {
+				if (err) throw err;
+				console.log(result);
+				res.json(result);
+			});
+		});
+	});
 
 	return api;
 }
