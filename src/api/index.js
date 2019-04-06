@@ -71,6 +71,7 @@ export default ({ config, db }) => {
 
 		db.connect(function(err) {
 			if (err) throw err;
+			// Get the "latest" post--that is, the post with the greatest postid
 			db.query('SELECT * FROM posts ORDER BY postid DESC LIMIT 1;', function (err, result, fields) {
 				if (err) throw err;
 				console.log(result);
